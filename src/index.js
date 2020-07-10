@@ -1,20 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
 import 'fontsource-roboto';
 
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from 'react-router-dom';
+  Home,
+  Category,
+  NotFound,
+  ShowBook,
+  EditBook
+} from 'pages';
 
 ReactDOM.render(
   <Router>
     <Switch>
-      <Route path="/">
-        <App />
-      </Route>
+      <Route exact path="/" component={Home} />
+      <Route path="/category/:name" component={Category} />
+      <Route path="/show-book/:id" component={ShowBook} />
+      <Route path="/edit-book/:id?" component={EditBook} />
+      <Route path="*" component={NotFound} />
     </Switch>
   </Router>,
   document.getElementById('root')
