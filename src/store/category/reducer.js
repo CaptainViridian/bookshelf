@@ -4,7 +4,7 @@ const categorySlice = createSlice({
   name: 'categories',
   initialState: { content: [], loading: false },
   reducers: {
-    fetching: state => {
+    fetching: (state) => {
       state.loading = true;
     },
     fetched: (state, { payload }) => {

@@ -1,5 +1,4 @@
-import { actions } from 'store/book/reducer';
-import reducer from 'store/book/reducer';
+import reducer, { actions } from 'store/book/reducer';
 
 import { fetchedBook, fetchedComment } from 'test/mocks';
 
@@ -13,7 +12,7 @@ describe('Book reducer', () => {
 
   it('should handle fetching', () => {
     expect(
-      reducer(undefined, actions.fetching())
+      reducer(undefined, actions.fetching()),
     ).toStrictEqual({
       ...initialState(),
       loading: true,

@@ -1,5 +1,4 @@
-import { actions } from 'store/books/reducer';
-import reducer from 'store/books/reducer';
+import reducer, { actions } from 'store/books/reducer';
 
 import * as bookActions from 'store/book/actions';
 
@@ -15,7 +14,7 @@ describe('Books reducer', () => {
 
   it('should handle fetching', () => {
     expect(
-      reducer(undefined, actions.fetching())
+      reducer(undefined, actions.fetching()),
     ).toStrictEqual({
       ...initialState(),
       loading: true,
@@ -39,7 +38,7 @@ describe('Books reducer', () => {
       const addedBook = { ...fetchedBook(), comments: [] };
 
       expect(
-        reducer(initialState(), bookActions.bookAdded(addedBook))
+        reducer(initialState(), bookActions.bookAdded(addedBook)),
       ).toStrictEqual({ ...initialState(), content: [addedBook] });
     });
 
@@ -56,10 +55,12 @@ describe('Books reducer', () => {
       const editedBook = { ...oldBook, title: 'Edited book' };
 
       expect(reducer({
-          ...initialState(),
-          content: [otherBook, oldBook]
-        }, bookActions.bookEdited(editedBook))
-      ).toStrictEqual({ ...initialState(), content: [otherBook, editedBook] });
+        ...initialState(),
+        content: [otherBook, oldBook],
+      }, bookActions.bookEdited(editedBook))).toStrictEqual({
+        ...initialState(),
+        content: [otherBook, editedBook],
+      });
     });
 
     it('should handle commentAdded', () => {
@@ -77,9 +78,10 @@ describe('Books reducer', () => {
       expect(reducer({ ...initialState(), content: [commentedBook] },
         bookActions.commentRemoved(fetchedComment())))
         .toStrictEqual({
-          ...initialState(), content: [{
-            ...commentedBook, comments: []
-          }]
+          ...initialState(),
+          content: [{
+            ...commentedBook, comments: [],
+          }],
         });
     });
   });

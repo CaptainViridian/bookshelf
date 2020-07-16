@@ -27,7 +27,7 @@ describe('Book actions', () => {
       const expectedAction = {
         type: actions.commentAdded.toString(),
         payload: newComment,
-      }
+      };
 
       expect(actions.commentAdded(newComment)).toStrictEqual(expectedAction);
     });

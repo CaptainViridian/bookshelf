@@ -5,7 +5,6 @@ import 'fontsource-roboto';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import store from './store';
 import { Provider } from 'react-redux';
 
 import {
@@ -13,8 +12,10 @@ import {
   Category,
   NotFound,
   ShowBook,
-  EditBook
+  EditBook,
 } from 'pages';
+
+import store from './store';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -28,5 +29,5 @@ ReactDOM.render(
       </Switch>
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

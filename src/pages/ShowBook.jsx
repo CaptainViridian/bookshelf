@@ -1,12 +1,12 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-const Category = () => {
-  const { name } = useParams()
+const ShowBook = () => {
+  const { id } = useParams();
 
   return (
     <></>
-  )
-}
+  );
+};
 
-export default Category;
+export default ShowBook;

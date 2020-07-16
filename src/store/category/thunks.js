@@ -1,7 +1,7 @@
-import { actions } from "./reducer";
+import { actions } from './reducer';
 
 const { fetching, fetched } = actions;
 
-export const fetchCategories = async () => dispatch => {
+export const fetchCategories = async () => (dispatch) => {
 
 };

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const loading = state => {
+const loading = (state) => {
   state.loading = true;
 };
 
@@ -21,7 +21,7 @@ const bookSlice = createSlice({
       state.loading = false;
     },
     removing: loading,
-    removed: state => {
+    removed: (state) => {
       state.item = {};
       state.loading = false;
     },
@@ -38,7 +38,7 @@ const bookSlice = createSlice({
     removingComment: loading,
     commentRemoved: (state, { payload: { id } }) => {
       state.loading = false;
-      state.item.comments = state.item.comments.filter(c => c.id !== id);
+      state.item.comments = state.item.comments.filter((c) => c.id !== id);
     },
   },
 });

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-const EditBook = () => {
-  const { id } = useParams()
+const Category = () => {
+  const { name } = useParams();
 
   return (
     <></>
-  )
-}
+  );
+};
 
-export default EditBook;
+export default Category;
