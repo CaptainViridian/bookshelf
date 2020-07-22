@@ -1,6 +1,4 @@
-import React, {
-  useCallback, useEffect, useRef, useState,
-} from 'react';
+import React from 'react';
 
 import {
   AppBar, Grid, Slide, Typography,
@@ -9,6 +7,7 @@ import { BookTwoTone as Book } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Link } from 'react-router-dom';
+import { useScrollListener } from '../../utils/hooks';
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -28,28 +27,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const classes = useStyles();
-
-  const lastScroll = useRef(Number.MAX_SAFE_INTEGER);
-
-  const [show, setShow] = useState(true);
-
-  const handleScroll = useCallback(() => {
-    const newScroll = window.scrollY;
-    if (newScroll === lastScroll.current) {
-      return;
-    }
-    const shouldShow = newScroll < lastScroll.current;
-
-    setShow(shouldShow);
-    lastScroll.current = newScroll;
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-  }, [handleScroll]);
+  const scrolledUp = useScrollListener();
 
   return (
-    <Slide timeout={600} direction="down" in={show} mountOnEnter unmountOnExit>
+    <Slide timeout={600} direction="down" in={scrolledUp} mountOnEnter unmountOnExit>
       <AppBar className={classes.header} color="default">
         <Link to="/" className={classes.link}>
           <Typography variant="h4" color="primary">
