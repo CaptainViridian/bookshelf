@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Actions = ({ addBookClickPath, onClickSort }) => {
+const Actions = ({ addBookClickPath, onClickSort, order }) => {
   const classes = useStyles();
   const scrolledUp = useScrollListener();
 
@@ -52,7 +52,7 @@ const Actions = ({ addBookClickPath, onClickSort }) => {
       <div className={classes.actions}>
         <SpeedDial
           ariaLabel=""
-          icon={<SpeedDialIcon icon={<SortIcon />} openIcon={<SortIcon />} />}
+          icon={<SpeedDialIcon icon={sortActions[order]} openIcon={<SortIcon />} />}
           open={speedDialOpen}
           onClose={handleCloseSpeedDial}
           onOpen={() => setSpeedDialOpen(true)}
@@ -76,6 +76,7 @@ const Actions = ({ addBookClickPath, onClickSort }) => {
 Actions.propTypes = {
   addBookClickPath: PropTypes.string.isRequired,
   onClickSort: PropTypes.func.isRequired,
+  order: PropTypes.oneOf(Object.values(SortMethods)).isRequired,
 };
 
 export default Actions;

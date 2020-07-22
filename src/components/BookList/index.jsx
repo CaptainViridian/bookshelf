@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { toPairs } from 'ramda';
 
-import { Categories } from 'utils/constants';
+import { Categories, SortMethods } from 'utils/constants';
 import { arrayOfBook } from 'utils/types';
 
 import { Grid } from '@material-ui/core';
 
+import { Sort } from '@material-ui/icons';
 import Category from './Category';
 import Actions from './Actions';
 
@@ -20,6 +21,7 @@ const BookList = ({
   getAddBookClickPath,
   getCategoryNameClickPath,
   loading = false,
+  order,
   onClickSort,
 }) => {
   const booksByCategory = toPairs(groupedBooks);
@@ -41,7 +43,7 @@ const BookList = ({
           />
         ))}
       </Grid>
-      <Actions addBookClickPath={getAddBookClickPath()} onClickSort={onClickSort} />
+      <Actions order={order} addBookClickPath={getAddBookClickPath()} onClickSort={onClickSort} />
     </>
   );
 };
@@ -55,9 +57,10 @@ BookList.propTypes = {
   }).isRequired,
   getCardClickPath: PropTypes.func.isRequired,
   getAddBookClickPath: PropTypes.func.isRequired,
-  getCategoryNameClickPath: PropTypes.func,
   onClickSort: PropTypes.func.isRequired,
+  order: PropTypes.oneOf(Object.values(SortMethods)).isRequired,
   loading: PropTypes.bool,
+  getCategoryNameClickPath: PropTypes.func,
 };
 
 export default BookList;

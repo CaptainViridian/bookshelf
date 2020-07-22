@@ -8,11 +8,15 @@ import {
   removingBook,
 } from 'store/book/actions';
 
+import { SortMethods } from 'utils/constants';
+
 const loading = (state) => {
   state.loading = true;
 };
 
-const initialState = { content: [], loading: false, category: '' };
+const initialState = {
+  content: [], loading: false, category: '', order: SortMethods.alpha,
+};
 
 const booksSlice = createSlice({
   name: 'books',
@@ -25,6 +29,9 @@ const booksSlice = createSlice({
     },
     categorySet: (state, { payload: { category } }) => {
       state.category = category;
+    },
+    orderSet: (state, { payload: { order } }) => {
+      state.order = order;
     },
   },
   extraReducers: {

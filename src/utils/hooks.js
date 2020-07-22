@@ -2,6 +2,9 @@ import {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 
+import { sortBy, prop } from 'ramda';
+import { SortMethods } from './constants';
+
 export function useScrollListener() {
   const lastScroll = useRef(Number.MAX_SAFE_INTEGER);
 
@@ -22,3 +25,10 @@ export function useScrollListener() {
 
   return scrolledUp;
 }
+
+const sortFunctions = {
+  [SortMethods.alpha]: sortBy(prop('title')),
+  [SortMethods.date]: sortBy(prop('timestamp')),
+};
+
+export const useSortMethod = (name) => sortFunctions[name];
