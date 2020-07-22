@@ -6,8 +6,6 @@ import { Categories, SortMethods } from 'utils/constants';
 import { arrayOfBook } from 'utils/types';
 
 import { Grid } from '@material-ui/core';
-
-import { Sort } from '@material-ui/icons';
 import Category from './Category';
 import Actions from './Actions';
 
