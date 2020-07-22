@@ -14,26 +14,31 @@ const {
 } = Categories;
 
 const BookList = ({
-  groupedBooks, getCardClickPath, getCategoryNameClickPath = () => undefined, loading = false,
+  groupedBooks,
+  getCardClickPath,
+  getCategoryNameClickPath,
+  loading = false,
 }) => {
   const booksByCategory = toPairs(groupedBooks);
 
   return (
-    <Grid
-      spacing={4}
-      container
-      direction="column"
-      alignItems="center"
-    >
-      {booksByCategory.map(([name, categoryBooks]) => (
-        <Category
-          name={name}
-          books={categoryBooks}
-          onNameClickPath={getCategoryNameClickPath(name)}
-          getCardClickPath={getCardClickPath}
-        />
-      ))}
-    </Grid>
+    <>
+      <Grid
+        spacing={4}
+        container
+        direction="column"
+        alignItems="center"
+      >
+        {booksByCategory.map(([name, categoryBooks]) => (
+          <Category
+            name={name}
+            books={categoryBooks}
+            onNameClickPath={getCategoryNameClickPath(name)}
+            getCardClickPath={getCardClickPath}
+          />
+        ))}
+      </Grid>
+    </>
   );
 };
 

@@ -4,11 +4,11 @@ import { useParams } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
-import { showBookPath } from 'utils/paths';
+import { showBookPath, newBookPath } from 'utils/paths';
 
 import { actions as booksActions } from 'store/books/reducer';
 
-import CategorizedBookList from 'containers/CategorizedBookList';
+import ConnectedBookList from 'containers/ConnectedBookList';
 
 const Category = () => {
   const { name } = useParams();
@@ -16,9 +16,9 @@ const Category = () => {
 
   useEffect(() => {
     dispatch(booksActions.categorySet({ category: name }));
-  });
+  }, [dispatch, name]);
 
-  return <CategorizedBookList getCardClickPath={showBookPath} />;
+  return <ConnectedBookList getAddBookClickPath={newBookPath} getCardClickPath={showBookPath} />;
 };
 
 export default Category;
