@@ -11,6 +11,7 @@ import { Search } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import Category from './Category';
 import Actions from './Actions';
+import NoBooksFound from '../NoBooksFound';
 
 const {
   wantToRead, noCategory, read, reading,
@@ -22,7 +23,6 @@ const BookList = ({
   getAddBookClickPath,
   getCategoryNameClickPath,
   onFilterChange,
-  loading = false,
   order,
   onClickSort,
 }) => {
@@ -42,22 +42,24 @@ const BookList = ({
             <TextField label="Search" onChange={({ target: { value } }) => onFilterChange(value)} />
           </Grid>
         </Grid>
-        <Grid
-          spacing={4}
-          container
-          item
-          direction="column"
-          alignItems="center"
-        >
-          {booksByCategory.map(([name, categoryBooks]) => (
-            <Category
-              name={name}
-              books={categoryBooks}
-              onNameClickPath={getCategoryNameClickPath(name)}
-              getCardClickPath={getCardClickPath}
-            />
-          ))}
-        </Grid>
+        {booksByCategory.length > 0 ? (
+          <Grid
+            spacing={4}
+            container
+            item
+            direction="column"
+            alignItems="center"
+          >
+            {booksByCategory.map(([name, categoryBooks]) => (
+              <Category
+                name={name}
+                books={categoryBooks}
+                onNameClickPath={getCategoryNameClickPath(name)}
+                getCardClickPath={getCardClickPath}
+              />
+            ))}
+          </Grid>
+        ) : <NoBooksFound />}
       </Grid>
       <Actions order={order} addBookClickPath={getAddBookClickPath()} onClickSort={onClickSort} />
     </>
@@ -76,7 +78,6 @@ BookList.propTypes = {
   onClickSort: PropTypes.func.isRequired,
   order: PropTypes.oneOf(Object.values(SortMethods)).isRequired,
   onFilterChange: PropTypes.func.isRequired,
-  loading: PropTypes.bool,
   getCategoryNameClickPath: PropTypes.func,
 };
 

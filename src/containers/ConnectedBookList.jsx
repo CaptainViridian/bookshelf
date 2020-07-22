@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { compose, groupBy, reduce } from 'ramda';
 
 import {
+  loadingBooks,
   selectBooks,
   selectCategory,
   selectFilterString,
@@ -31,6 +32,7 @@ function ConnectedBookList({
   const category = useSelector(selectCategory);
   const order = useSelector(selectOrder);
   const filterString = useSelector(selectFilterString);
+  const loading = useSelector(loadingBooks);
 
   const sort = useSortMethod(order);
   const filter = useFilter(filterString);
@@ -56,15 +58,17 @@ function ConnectedBookList({
   )(books);
 
   return (
-    <BookList
-      groupedBooks={groupedBooks}
-      getCardClickPath={getCardClickPath}
-      getAddBookClickPath={getAddBookClickPath}
-      getCategoryNameClickPath={getCategoryNameClickPath}
-      onFilterChange={handleFilterChange}
-      onClickSort={handleSort}
-      order={order}
-    />
+    !loading ? (
+      <BookList
+        groupedBooks={groupedBooks}
+        getCardClickPath={getCardClickPath}
+        getAddBookClickPath={getAddBookClickPath}
+        getCategoryNameClickPath={getCategoryNameClickPath}
+        onFilterChange={handleFilterChange}
+        onClickSort={handleSort}
+        order={order}
+      />
+    ) : null
   );
 }
 
