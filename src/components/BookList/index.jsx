@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { toPairs } from 'ramda';
+import { compose, sort, toPairs } from 'ramda';
 
 import { Categories, SortMethods } from 'utils/constants';
 import { arrayOfBook } from 'utils/types';
 
-import { Grid } from '@material-ui/core';
+import { Grid, TextField } from '@material-ui/core';
+import { Search } from '@material-ui/icons';
+
+import { makeStyles } from '@material-ui/core/styles';
 import Category from './Category';
 import Actions from './Actions';
 
@@ -18,28 +21,43 @@ const BookList = ({
   getCardClickPath,
   getAddBookClickPath,
   getCategoryNameClickPath,
+  onFilterChange,
   loading = false,
   order,
   onClickSort,
 }) => {
-  const booksByCategory = toPairs(groupedBooks);
+  const booksByCategory = compose(
+    sort((a, b) => (a[0] === noCategory ? -1 : 0)),
+    toPairs,
+  )(groupedBooks);
 
   return (
     <>
-      <Grid
-        spacing={4}
-        container
-        direction="column"
-        alignItems="center"
-      >
-        {booksByCategory.map(([name, categoryBooks]) => (
-          <Category
-            name={name}
-            books={categoryBooks}
-            onNameClickPath={getCategoryNameClickPath(name)}
-            getCardClickPath={getCardClickPath}
-          />
-        ))}
+      <Grid container direction="column" spacing={3} style={{ width: '100%' }}>
+        <Grid container item justify="center" alignItems="flex-end" spacing={1}>
+          <Grid item>
+            <Search color="action" />
+          </Grid>
+          <Grid item>
+            <TextField label="Search" onChange={({ target: { value } }) => onFilterChange(value)} />
+          </Grid>
+        </Grid>
+        <Grid
+          spacing={4}
+          container
+          item
+          direction="column"
+          alignItems="center"
+        >
+          {booksByCategory.map(([name, categoryBooks]) => (
+            <Category
+              name={name}
+              books={categoryBooks}
+              onNameClickPath={getCategoryNameClickPath(name)}
+              getCardClickPath={getCardClickPath}
+            />
+          ))}
+        </Grid>
       </Grid>
       <Actions order={order} addBookClickPath={getAddBookClickPath()} onClickSort={onClickSort} />
     </>
@@ -57,6 +75,7 @@ BookList.propTypes = {
   getAddBookClickPath: PropTypes.func.isRequired,
   onClickSort: PropTypes.func.isRequired,
   order: PropTypes.oneOf(Object.values(SortMethods)).isRequired,
+  onFilterChange: PropTypes.func.isRequired,
   loading: PropTypes.bool,
   getCategoryNameClickPath: PropTypes.func,
 };

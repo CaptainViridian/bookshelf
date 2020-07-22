@@ -2,7 +2,7 @@ import {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 
-import { sortBy, prop } from 'ramda';
+import { sortBy, prop, filter } from 'ramda';
 import { SortMethods } from './constants';
 
 export function useScrollListener() {
@@ -32,3 +32,9 @@ const sortFunctions = {
 };
 
 export const useSortMethod = (name) => sortFunctions[name];
+
+export const useFilter = (text) => (
+  !text
+    ? (content) => content
+    : filter((book) => book.title.includes(text))
+);

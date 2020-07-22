@@ -15,7 +15,7 @@ const loading = (state) => {
 };
 
 const initialState = {
-  content: [], loading: false, category: '', order: SortMethods.alpha,
+  content: [], loading: false, category: '', order: SortMethods.alpha, filterString: '',
 };
 
 const booksSlice = createSlice({
@@ -32,6 +32,9 @@ const booksSlice = createSlice({
     },
     orderSet: (state, { payload: { order } }) => {
       state.order = order;
+    },
+    filterSet: (state, { payload: { text } }) => {
+      state.filterString = text;
     },
   },
   extraReducers: {

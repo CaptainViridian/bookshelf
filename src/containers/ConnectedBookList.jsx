@@ -6,14 +6,19 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { compose, groupBy, reduce } from 'ramda';
 
-import { selectBooks, selectCategory, selectOrder } from 'store/books/selectors';
+import {
+  selectBooks,
+  selectCategory,
+  selectFilterString,
+  selectOrder,
+} from 'store/books/selectors';
 import { actions } from 'store/books/reducer';
 import { fetchBooks, fetchBooksByCategory } from 'store/books/thunks';
 
 import { Categories } from 'utils/constants';
 
 import BookList from 'components/BookList';
-import { useSortMethod } from 'utils/hooks';
+import { useFilter, useSortMethod } from 'utils/hooks';
 
 function ConnectedBookList({
   getCardClickPath,
@@ -25,9 +30,17 @@ function ConnectedBookList({
   const books = useSelector(selectBooks);
   const category = useSelector(selectCategory);
   const order = useSelector(selectOrder);
+  const filterString = useSelector(selectFilterString);
+
+  const sort = useSortMethod(order);
+  const filter = useFilter(filterString);
 
   const handleSort = useCallback((by) => {
     dispatch(actions.orderSet({ order: by }));
+  }, [dispatch]);
+
+  const handleFilterChange = useCallback((text) => {
+    dispatch(actions.filterSet({ text }));
   }, [dispatch]);
 
   useEffect(() => {
@@ -35,12 +48,11 @@ function ConnectedBookList({
     else dispatch(fetchBooks());
   }, [category, dispatch]);
 
-  const sort = useSortMethod(order);
-
   const groupedBooks = compose(
     reduce((acc, [categoryName, list]) => ({ ...acc, [categoryName]: sort(list) }), {}),
     Object.entries,
     groupBy((book) => book.category || Categories.noCategory),
+    filter,
   )(books);
 
   return (
@@ -49,6 +61,7 @@ function ConnectedBookList({
       getCardClickPath={getCardClickPath}
       getAddBookClickPath={getAddBookClickPath}
       getCategoryNameClickPath={getCategoryNameClickPath}
+      onFilterChange={handleFilterChange}
       onClickSort={handleSort}
       order={order}
     />
