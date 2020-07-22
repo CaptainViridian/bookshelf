@@ -8,7 +8,7 @@ const NewBook = () => {
 
   const handleSubmit = useCallback(() => {
     history.push('/');
-  });
+  }, [history]);
 
   return (
     <ConnectedBookForm onSubmit={handleSubmit} />

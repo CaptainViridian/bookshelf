@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: 'none',
     '&:visited': {
-      color: 'inherit',
+      color: theme.palette.info.dark,
     },
   },
 }));

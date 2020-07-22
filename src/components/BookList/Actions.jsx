@@ -57,13 +57,15 @@ const Actions = ({ addBookClickPath, onClickSort, order }) => {
           onClose={handleCloseSpeedDial}
           onOpen={() => setSpeedDialOpen(true)}
         >
-          {Object.entries(sortActions).map(([title, icon]) => (
-            <SpeedDialAction
-              tooltipTitle={title}
-              icon={icon}
-              onClick={() => handleSortClick(title)}
-            />
-          ))}
+          {speedDialOpen && Object
+            .entries(sortActions)
+            .map(([title, icon]) => (
+              <SpeedDialAction
+                tooltipTitle={title}
+                icon={icon}
+                onClick={() => handleSortClick(title)}
+              />
+            ))}
         </SpeedDial>
         <Link to={addBookClickPath}>
           <Fab color="primary"><AddIcon /></Fab>
