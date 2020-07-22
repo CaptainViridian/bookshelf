@@ -8,6 +8,7 @@ import { arrayOfBook } from 'utils/types';
 import { Grid } from '@material-ui/core';
 
 import Category from './Category';
+import Actions from './Actions';
 
 const {
   wantToRead, noCategory, read, reading,
@@ -16,8 +17,10 @@ const {
 const BookList = ({
   groupedBooks,
   getCardClickPath,
+  getAddBookClickPath,
   getCategoryNameClickPath,
   loading = false,
+  onClickSort,
 }) => {
   const booksByCategory = toPairs(groupedBooks);
 
@@ -38,6 +41,7 @@ const BookList = ({
           />
         ))}
       </Grid>
+      <Actions addBookClickPath={getAddBookClickPath()} onClickSort={onClickSort} />
     </>
   );
 };
@@ -50,7 +54,9 @@ BookList.propTypes = {
     [noCategory]: arrayOfBook,
   }).isRequired,
   getCardClickPath: PropTypes.func.isRequired,
+  getAddBookClickPath: PropTypes.func.isRequired,
   getCategoryNameClickPath: PropTypes.func,
+  onClickSort: PropTypes.func.isRequired,
   loading: PropTypes.bool,
 };
 

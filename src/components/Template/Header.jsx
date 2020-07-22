@@ -7,7 +7,7 @@ import { BookTwoTone as Book } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Link } from 'react-router-dom';
-import { useScrollListener } from '../../utils/hooks';
+import { useScrollListener } from 'utils/hooks';
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -30,7 +30,7 @@ const Header = () => {
   const scrolledUp = useScrollListener();
 
   return (
-    <Slide timeout={600} direction="down" in={scrolledUp} mountOnEnter unmountOnExit>
+    <Slide timeout={600} direction="down" in={scrolledUp}>
       <AppBar className={classes.header} color="default">
         <Link to="/" className={classes.link}>
           <Typography variant="h4" color="primary">

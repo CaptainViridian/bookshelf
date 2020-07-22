@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { PropTypes } from 'prop-types';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { groupBy } from 'ramda';
+import { groupBy, type } from 'ramda';
 
 import { selectBooks, selectCategory } from 'store/books/selectors';
 import { fetchBooks, fetchBooksByCategory } from 'store/books/thunks';
@@ -30,12 +30,17 @@ function ConnectedBookList({
 
   const groupedBooks = groupBy((book) => book.category || Categories.noCategory, books);
 
+  const handleSort = useCallback((by) => {
+    console.log(by);
+  }, []);
+
   return (
     <BookList
       groupedBooks={groupedBooks}
       getCardClickPath={getCardClickPath}
       getAddBookClickPath={getAddBookClickPath}
       getCategoryNameClickPath={getCategoryNameClickPath}
+      onClickSort={handleSort}
     />
   );
 }

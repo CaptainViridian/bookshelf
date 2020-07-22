@@ -5,11 +5,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import {
-  Category, EditBook, Home, NotFound, ShowBook,
+  Category, EditBook, Home, NotFound, ShowBook, NewBook,
 } from 'pages';
 
 import store from 'store';
-import Template from '../components/Template/Template';
+import Template from 'components/Template/Template';
 
 function Root() {
   return (
@@ -21,6 +21,7 @@ function Root() {
             <Route path="/category/:name" component={Category} />
             <Route path="/show-book/:id" component={ShowBook} />
             <Route path="/edit-book/:id?" component={EditBook} />
+            <Route path="/new-book/" component={NewBook} />
             <Route path="*" component={NotFound} />
           </Switch>
         </Template>
