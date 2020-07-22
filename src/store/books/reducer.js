@@ -1,18 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   bookAdded,
-  removingBook,
-  bookRemoved,
   bookEdited,
+  bookRemoved,
   commentAdded,
   commentRemoved,
-} from '../book/actions';
+  removingBook,
+} from 'store/book/actions';
 
 const loading = (state) => {
   state.loading = true;
 };
 
-const initialState = { content: [], loading: false };
+const initialState = { content: [], loading: false, category: '' };
 
 const booksSlice = createSlice({
   name: 'books',
@@ -22,6 +22,9 @@ const booksSlice = createSlice({
     fetched: (state, { payload: { books } }) => {
       state.content = books;
       state.loading = false;
+    },
+    categorySet: (state, { payload: { category } }) => {
+      state.category = category;
     },
   },
   extraReducers: {

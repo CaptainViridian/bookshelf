@@ -14,7 +14,7 @@ const {
 } = Categories;
 
 const BookList = ({
-  groupedBooks, getCardClickPath, getCategoryNameClickPath, loading = false,
+  groupedBooks, getCardClickPath, getCategoryNameClickPath = () => undefined, loading = false,
 }) => {
   const booksByCategory = toPairs(groupedBooks);
 
@@ -45,7 +45,7 @@ BookList.propTypes = {
     [noCategory]: arrayOfBook,
   }).isRequired,
   getCardClickPath: PropTypes.func.isRequired,
-  getCategoryNameClickPath: PropTypes.func.isRequired,
+  getCategoryNameClickPath: PropTypes.func,
   loading: PropTypes.bool,
 };
 
