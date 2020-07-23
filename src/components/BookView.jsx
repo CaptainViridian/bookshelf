@@ -1,10 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
+import PropTypes from 'prop-types';
+
 import { bookType } from 'utils/types';
 
 import {
-  Paper, Typography, Grid, Box, Chip, IconButton,
+  Box, Chip, Grid, IconButton, Paper, Typography,
 } from '@material-ui/core';
 
 import { Delete } from '@material-ui/icons';
@@ -40,8 +42,9 @@ const BookInfo = ({ children, ...props }) => (
 
 const BookView = ({
   book: {
-    title, author, description, category, timestamp,
+    id, title, author, description, category, timestamp,
   },
+  onClickDelete,
 }) => {
   const classes = useStyles();
 
@@ -72,7 +75,7 @@ const BookView = ({
           </Grid>
         )}
         <Grid item>
-          <IconButton className={classes.deleteButton}>
+          <IconButton onClick={() => onClickDelete(id)} className={classes.deleteButton}>
             <Delete />
           </IconButton>
         </Grid>
@@ -83,6 +86,7 @@ const BookView = ({
 
 BookView.propTypes = {
   book: bookType.isRequired,
+  onClickDelete: PropTypes.func.isRequired,
 };
 
 export default BookView;
