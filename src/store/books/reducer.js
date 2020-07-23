@@ -47,11 +47,13 @@ const booksSlice = createSlice({
       state.loading = false;
     },
     [bookEdited]: (state, { payload }) => {
+      if (state.content.length < 1) return;
       const { id } = payload;
       const pos = state.content.findIndex((book) => book.id === id);
       state.content.splice(pos, 1, payload);
     },
     [commentAdded]: (state, { payload }) => {
+      if (state.content.length < 1) return;
       const { parentId: bookId } = payload;
       const bookPos = state.content.findIndex((book) => book.id === bookId);
       state.content[bookPos].comments.push(payload);

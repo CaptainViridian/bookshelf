@@ -43,7 +43,11 @@ export const editBook = (book) => async (dispatch) => {
 };
 
 export const addComment = (comment) => async (dispatch) => {
-
+  dispatch(addingComment());
+  const book = await getBook(comment.parentId);
+  book.comments.push(comment);
+  await updateBook(book);
+  dispatch(commentAdded(comment));
 };
 
 export const removeComment = (id) => async (dispatch) => {

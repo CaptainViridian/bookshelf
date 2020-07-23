@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectBook } from 'store/book/selectors';
-import { removeBook } from 'store/book/thunks';
+import { addComment, removeBook } from 'store/book/thunks';
 
 import BookView from 'components/BookView';
+import { isEmptyObject } from '../utils';
 
 function ConnectedBookView({ onClickDelete, onClickEdit }) {
   const book = useSelector(selectBook);
@@ -18,8 +19,17 @@ function ConnectedBookView({ onClickDelete, onClickEdit }) {
     onClickDelete();
   }, [dispatch, onClickDelete]);
 
-  return (
-    <BookView onClickEdit={onClickEdit} onClickDelete={handleClickDelete} book={book} />
+  const handlePostComment = useCallback((comment) => {
+    dispatch(addComment(comment));
+  }, [dispatch]);
+
+  return !isEmptyObject(book) && (
+    <BookView
+      onClickSubmitComment={handlePostComment}
+      onClickEdit={onClickEdit}
+      onClickDelete={handleClickDelete}
+      book={book}
+    />
   );
 }
 
