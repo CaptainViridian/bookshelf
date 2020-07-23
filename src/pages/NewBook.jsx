@@ -6,12 +6,15 @@ import { useHistory } from 'react-router-dom';
 const NewBook = () => {
   const history = useHistory();
 
-  const handleSubmit = useCallback(() => {
+  const backToRoot = () => {
     history.push('/');
-  }, [history]);
+  };
+
+  const handleSubmit = useCallback(backToRoot, [history]);
+  const handleClickCancel = useCallback(backToRoot, [history]);
 
   return (
-    <ConnectedBookForm onSubmit={handleSubmit} />
+    <ConnectedBookForm onCancel={handleClickCancel} onSubmit={handleSubmit} />
   );
 };
 

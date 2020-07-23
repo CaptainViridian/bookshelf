@@ -13,7 +13,9 @@ import {
   selectFilterString,
   selectOrder,
 } from 'store/books/selectors';
+
 import { actions } from 'store/books/reducer';
+import { actions as bookActions } from 'store/book/reducer';
 import { fetchBooks, fetchBooksByCategory } from 'store/books/thunks';
 
 import { Categories } from 'utils/constants';
@@ -49,6 +51,10 @@ function ConnectedBookList({
     if (category) dispatch(fetchBooksByCategory(category));
     else dispatch(fetchBooks());
   }, [category, dispatch]);
+
+  useEffect(() => {
+    dispatch(bookActions.bookReset());
+  }, [dispatch]);
 
   const groupedBooks = compose(
     reduce((acc, [categoryName, list]) => ({ ...acc, [categoryName]: sort(list) }), {}),

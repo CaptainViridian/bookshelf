@@ -39,7 +39,7 @@ export const removeBook = (id) => async (dispatch) => {
 export const editBook = (book) => async (dispatch) => {
   dispatch(editing());
   await updateBook(book);
-  dispatch(edited());
+  dispatch(edited(book));
 };
 
 export const addComment = (comment) => async (dispatch) => {

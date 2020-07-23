@@ -52,6 +52,7 @@ const BookList = ({
           >
             {booksByCategory.map(([name, categoryBooks]) => (
               <Category
+                key={name}
                 name={name}
                 books={categoryBooks}
                 onNameClickPath={getCategoryNameClickPath(name)}

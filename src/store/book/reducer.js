@@ -10,14 +10,17 @@ const bookSlice = createSlice({
   name: 'book',
   initialState,
   reducers: {
+    bookReset: (state) => {
+      state.item = {};
+    },
     fetching: loading,
     fetched: (state, { payload }) => {
       state.item = payload;
       state.loading = false;
     },
     adding: loading,
-    added: (state, { payload }) => {
-      state.item = payload;
+    added: (state) => {
+      state.item = { };
       state.loading = false;
     },
     removing: loading,
@@ -26,8 +29,8 @@ const bookSlice = createSlice({
       state.loading = false;
     },
     editing: loading,
-    edited: (state, { payload }) => {
-      state.item = payload;
+    edited: (state) => {
+      state.item = { };
       state.loading = false;
     },
     addingComment: loading,

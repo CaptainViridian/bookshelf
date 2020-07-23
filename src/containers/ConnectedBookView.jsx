@@ -9,7 +9,7 @@ import { removeBook } from 'store/book/thunks';
 
 import BookView from 'components/BookView';
 
-function ConnectedBookView({ onClickDelete }) {
+function ConnectedBookView({ onClickDelete, onClickEdit }) {
   const book = useSelector(selectBook);
   const dispatch = useDispatch();
 
@@ -19,12 +19,13 @@ function ConnectedBookView({ onClickDelete }) {
   }, [dispatch, onClickDelete]);
 
   return (
-    <BookView onClickDelete={handleClickDelete} book={book} />
+    <BookView onClickEdit={onClickEdit} onClickDelete={handleClickDelete} book={book} />
   );
 }
 
 ConnectedBookView.propTypes = {
   onClickDelete: PropTypes.func.isRequired,
+  onClickEdit: PropTypes.func.isRequired,
 };
 
 export default ConnectedBookView;

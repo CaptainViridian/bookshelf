@@ -9,11 +9,9 @@ import {
   Box, Chip, Grid, IconButton, Paper, Typography,
 } from '@material-ui/core';
 
-import { Delete } from '@material-ui/icons';
+import { Delete, Edit } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-  },
   content: {
     padding: theme.spacing(4),
     [theme.breakpoints.up('sm')]: {
@@ -26,8 +24,13 @@ const useStyles = makeStyles((theme) => ({
       width: theme.breakpoints.values.md,
     },
   },
-  actions: {
+  footer: {
     padding: theme.spacing(3),
+  },
+  actions: {
+    '& > button': {
+      margin: theme.spacing(0, 1),
+    },
   },
   deleteButton: {
     padding: 0,
@@ -45,6 +48,7 @@ const BookView = ({
     id, title, author, description, category, timestamp,
   },
   onClickDelete,
+  onClickEdit,
 }) => {
   const classes = useStyles();
 
@@ -68,13 +72,21 @@ const BookView = ({
           {new Date(timestamp).toLocaleDateString('en-US')}
         </BookInfo>
       </Grid>
-      <Grid container alignItems="flex-end" justify={category ? 'space-between' : 'flex-end'} className={classes.actions}>
+      <Grid
+        container
+        alignItems="center"
+        justify={category ? 'space-between' : 'flex-end'}
+        className={classes.footer}
+      >
         {category && (
           <Grid item>
-            <Chip label={category} color="primary" />
+            <Chip label={category} color="secondary" />
           </Grid>
         )}
-        <Grid item>
+        <Grid item className={classes.actions}>
+          <IconButton onClick={onClickEdit} color="primary">
+            <Edit />
+          </IconButton>
           <IconButton onClick={() => onClickDelete(id)} className={classes.deleteButton}>
             <Delete />
           </IconButton>
@@ -87,6 +99,7 @@ const BookView = ({
 BookView.propTypes = {
   book: bookType.isRequired,
   onClickDelete: PropTypes.func.isRequired,
+  onClickEdit: PropTypes.func.isRequired,
 };
 
 export default BookView;
